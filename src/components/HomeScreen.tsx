@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ASSETS, CONTACT_INFO, PRACTICE_DOMAINS } from '../data';
-import { ConsultationFormData, ScreenType } from '../types';
+import { ScreenType } from '../types';
 
 interface HomeScreenProps {
   onNavigate: (screen: ScreenType) => void;
@@ -8,235 +8,244 @@ interface HomeScreenProps {
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate, onSelectDomain }) => {
-  const [savedAppointments, setSavedAppointments] = useState<ConsultationFormData[]>([]);
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('cabinet_rdv_list');
-      if (stored) {
-        setSavedAppointments(JSON.parse(stored));
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
-
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto">
-      {/* Hero Welcome Card */}
-      <section className="px-4 sm:px-6 pt-4 pb-4">
-        <div className="relative overflow-hidden rounded-2xl bg-[#0B1120] text-white p-5 sm:p-7 shadow-xl border border-white/10">
-          {/* Subtle background glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#725b38]/20 rounded-full blur-3xl pointer-events-none" />
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+      {/* Hero Section: Majestic 2-column layout on desktop */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#111A2E] to-[#070A12] border border-[#1E293B] p-6 sm:p-10 lg:p-12 shadow-2xl">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#C5A880]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 flex flex-col items-start">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#fedeb2]/20 border border-[#fedeb2]/30 text-[#fedeb2] rounded-full text-[11px] font-semibold uppercase tracking-wider mb-3">
-              <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Text / Info (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col items-start gap-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A880]/15 border border-[#C5A880]/30 text-[#C5A880] text-xs font-semibold uppercase tracking-wider">
+              <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                 verified
               </span>
-              <span>Barreau du Cameroun • Douala Bonanjo</span>
+              <span>Barreau du Cameroun • Siège Douala Bonanjo</span>
             </div>
 
-            <div className="flex items-center gap-4 mb-4">
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-0.5 bg-gradient-to-tr from-[#725b38] to-[#EADBCE] shrink-0 shadow-md">
-                <img
-                  src={ASSETS.portrait}
-                  alt="Maître YOYA Yves"
-                  className="w-full h-full rounded-full object-cover"
-                />
-                <span className="absolute bottom-0 right-0 w-5 h-5 bg-[#0B1120] rounded-full flex items-center justify-center text-[#fedeb2] border border-white/20">
-                  <span className="material-symbols-outlined text-[13px]">balance</span>
-                </span>
-              </div>
+            <h1 className="font-headline-lg text-[#F8FAFC] tracking-tight text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+              Défense Rigoureuse &amp; Conseil Stratégique en Afrique Centrale
+            </h1>
 
-              <div>
-                <h1 className="font-headline-lg-mobile sm:font-headline-lg text-white font-bold tracking-tight">
-                  Maître YOYA Yves
-                </h1>
-                <p className="font-label-md text-[#fedeb2] uppercase tracking-wider text-xs font-semibold mt-0.5">
-                  Avocat au Barreau du Cameroun
-                </p>
-                <p className="text-slate-300 text-xs mt-1">
-                  Conseil stratégique &amp; défense contentieuse de premier plan
-                </p>
-              </div>
-            </div>
-
-            <p className="font-body-md text-slate-200 text-xs sm:text-sm leading-relaxed mb-5">
-              Fondé sur la rigueur déontologique, le secret professionnel et la maîtrise approfondie des Actes Uniformes OHADA, le Cabinet accompagne dirigeants, investisseurs et particuliers.
+            <p className="font-body-lg text-[#94A3B8] leading-relaxed max-w-2xl text-sm sm:text-base">
+              Cabinet d'avocat fondé par <strong className="text-[#F8FAFC]">Maître YOYA Yves</strong>. Nous accompagnons les investisseurs, chefs d'entreprise et particuliers dans la sécurisation de leurs patrimoines, la négociation de contrats OHADA et la défense acharnée de leurs droits devant les tribunaux.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full">
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-2 w-full sm:w-auto">
               <button
                 onClick={() => onNavigate('contact-et-consultation')}
-                className="w-full sm:flex-1 h-12 bg-[#725b38] hover:bg-[#866b44] text-white rounded-xl font-label-md uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer font-semibold text-xs sm:text-sm active:scale-[0.99]"
-                id="btn-home-rdv"
+                className="w-full sm:w-auto px-7 py-3.5 bg-[#C5A880] hover:bg-[#D4AF37] text-[#070A12] font-label-md uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 font-bold cursor-pointer text-xs sm:text-sm active:scale-95"
+                id="hero-btn-rdv"
               >
-                <span className="material-symbols-outlined text-[18px]">calendar_today</span>
+                <span className="material-symbols-outlined text-[18px]">calendar_month</span>
                 <span>Prendre Consultation</span>
               </button>
 
               <button
                 onClick={() => onNavigate('domaines-d-expertise')}
-                className="w-full sm:w-auto h-12 px-5 bg-white/10 hover:bg-white/15 text-white rounded-xl font-label-md uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer font-semibold text-xs sm:text-sm"
-                id="btn-home-domaines"
+                className="w-full sm:w-auto px-6 py-3.5 bg-white/5 hover:bg-white/10 text-[#F8FAFC] border border-white/15 font-label-md uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-2 font-semibold cursor-pointer text-xs sm:text-sm"
+                id="hero-btn-domaines"
               >
-                <span>Nos Expertises</span>
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <span>Domaines d'Expertise</span>
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </button>
             </div>
+
+            {/* Quick Metrics Bar */}
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#1E293B] w-full mt-2">
+              <div>
+                <span className="block font-headline-sm text-xl sm:text-2xl font-bold text-[#F8FAFC]">15+</span>
+                <span className="font-label-sm text-[#94A3B8] text-[11px] uppercase tracking-wider">Ans au Barreau</span>
+              </div>
+              <div className="border-x border-[#1E293B] px-3">
+                <span className="block font-headline-sm text-xl sm:text-2xl font-bold text-[#C5A880]">OHADA</span>
+                <span className="font-label-sm text-[#94A3B8] text-[11px] uppercase tracking-wider">Zone CEMAC</span>
+              </div>
+              <div>
+                <span className="block font-headline-sm text-xl sm:text-2xl font-bold text-[#F8FAFC]">100%</span>
+                <span className="font-label-sm text-[#94A3B8] text-[11px] uppercase tracking-wider">Secret Garanti</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Portrait & Lawyer Spotlight (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <div className="relative w-full max-w-sm sm:max-w-md rounded-2xl p-2 bg-gradient-to-tr from-[#1E293B] via-[#C5A880]/40 to-[#1E293B] shadow-2xl">
+              <div className="relative rounded-xl overflow-hidden bg-[#0B1120] aspect-[4/5]">
+                <img
+                  src={ASSETS.portrait}
+                  alt="Maître YOYA Yves, Avocat au Barreau du Cameroun"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070A12] via-transparent to-transparent opacity-80" />
+
+                {/* Floating Lawyer Badge */}
+                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#0F172A]/90 backdrop-blur-md border border-[#C5A880]/30 text-white shadow-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-headline-sm text-base font-bold text-[#F8FAFC]">
+                        Maître YOYA Yves
+                      </p>
+                      <p className="text-[11px] text-[#C5A880] uppercase tracking-wider font-semibold">
+                        Avocat au Barreau du Cameroun
+                      </p>
+                    </div>
+                    <div className="w-9 h-9 rounded-lg bg-[#C5A880] text-[#070A12] flex items-center justify-center font-bold">
+                      <span className="material-symbols-outlined text-[20px]">balance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Permanence & Direct Action Strip */}
-      <section className="px-4 sm:px-6 mb-4">
-        <div className="grid grid-cols-2 gap-2.5">
-          <a
-            href={`tel:${CONTACT_INFO.phoneStandardRaw}`}
-            className="p-3 bg-white rounded-xl shadow-sm border border-[#e2e8f0] flex items-center gap-2.5 hover:bg-[#f2f4f6] transition-colors"
-          >
-            <div className="w-9 h-9 rounded-lg bg-[#eceef0] text-[#0B1120] flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-[20px]">call</span>
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-[10px] text-[#45464d] font-semibold uppercase tracking-wider truncate">
-                Ligne Secrétariat
-              </span>
-              <span className="text-xs font-bold text-[#0B1120] truncate">
-                {CONTACT_INFO.phoneStandard}
+      {/* Practice Areas / Domaines d'Intervention : 4 columns on desktop */}
+      <section className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full bg-[#C5A880]" />
+              <span className="font-label-sm text-[#C5A880] uppercase tracking-widest text-xs font-semibold">
+                Pôles d'Excellence
               </span>
             </div>
-          </a>
-
-          <a
-            href={`https://wa.me/${CONTACT_INFO.phoneWhatsappRaw}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-white rounded-xl shadow-sm border border-[#e2e8f0] flex items-center gap-2.5 hover:bg-[#f2f4f6] transition-colors"
-          >
-            <div className="w-9 h-9 rounded-lg bg-[#fedeb2]/50 text-[#78603e] flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-[20px]">chat</span>
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-[10px] text-[#725b38] font-semibold uppercase tracking-wider truncate">
-                Urgence WhatsApp
-              </span>
-              <span className="text-xs font-bold text-[#0B1120] truncate">
-                Permanence 24/7
-              </span>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      {/* Mes Demandes de Consultation Récentes (if any exist) */}
-      {savedAppointments.length > 0 && (
-        <section className="px-4 sm:px-6 mb-4">
-          <div className="bg-[#fedeb2]/20 border border-[#fedeb2]/60 rounded-xl p-3.5">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-[#78603e] uppercase tracking-wider flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[16px]">folder_shared</span>
-                Votre Dossier en cours ({savedAppointments.length})
-              </span>
-              <span className="text-[10px] bg-[#725b38] text-white px-2 py-0.5 rounded font-bold uppercase">
-                Enregistré
-              </span>
-            </div>
-            <div className="text-xs text-[#0B1120]">
-              <span className="font-semibold">{savedAppointments[0].civilite} {savedAppointments[0].nomComplet}</span>
-              {' '}— Rendez-vous souhaité le <span className="font-semibold">{savedAppointments[0].dateRdv}</span> ({savedAppointments[0].mode === 'cabinet' ? 'En cabinet' : 'À distance'})
-            </div>
-            <p className="text-[11px] text-[#45464d] mt-1">
-              Réf : <span className="font-mono font-medium">{savedAppointments[0].id}</span> • Traitement en cours par le secrétariat
-            </p>
+            <h2 className="font-headline-lg text-[#F8FAFC] text-2xl sm:text-3xl font-bold tracking-tight">
+              Domaines d'Intervention Juridique
+            </h2>
           </div>
-        </section>
-      )}
 
-      {/* 4 Pillars Grid */}
-      <section className="px-4 sm:px-6 mb-6">
-        <div className="flex items-center justify-between mb-2.5">
-          <h2 className="font-headline-sm text-[#0B1120] text-base sm:text-lg font-bold">
-            Domaines Clés d'Intervention
-          </h2>
           <button
             onClick={() => onNavigate('domaines-d-expertise')}
-            className="text-xs text-[#725b38] font-semibold hover:underline flex items-center gap-0.5 cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C5A880] hover:text-[#D4AF37] transition-colors cursor-pointer"
           >
-            <span>Voir tout</span>
-            <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span>Voir tous les 6 domaines</span>
+            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5">
+        {/* Responsive Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {PRACTICE_DOMAINS.slice(0, 4).map((domain) => (
             <div
               key={domain.id}
-              onClick={() => onSelectDomain(domain.id)}
-              className="bg-white p-3.5 rounded-xl border border-[#e2e8f0] shadow-2xs hover:border-[#725b38]/50 hover:shadow-sm transition-all cursor-pointer flex flex-col justify-between"
+              className="bg-[#0F172A] border border-[#1E293B] rounded-2xl p-5 shadow-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:border-[#C5A880]/50 group"
             >
               <div>
-                <div className="w-8 h-8 rounded-lg bg-[#eceef0] text-[#0B1120] flex items-center justify-center mb-2">
-                  <span className="material-symbols-outlined text-[20px]">{domain.icon}</span>
+                <div className="w-12 h-12 rounded-xl bg-[#131E33] border border-[#243252] flex items-center justify-center text-[#C5A880] mb-4 group-hover:scale-105 transition-transform">
+                  <span className="material-symbols-outlined text-[24px]">{domain.icon}</span>
                 </div>
-                <h3 className="font-title-md text-xs font-bold text-[#0B1120] line-clamp-2 leading-snug">
+                <h3 className="font-headline-sm text-[#F8FAFC] text-base font-bold mb-2 leading-snug">
                   {domain.title}
                 </h3>
+                <p className="font-body-sm text-[#94A3B8] text-xs leading-relaxed mb-4 line-clamp-3">
+                  {domain.summary}
+                </p>
               </div>
-              <div className="mt-2 pt-2 border-t border-[#f2f4f6] flex items-center justify-between text-[11px] text-[#725b38] font-semibold">
-                <span>{domain.tag}</span>
-                <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </div>
+
+              <button
+                onClick={() => onSelectDomain(domain.id)}
+                className="w-full py-2.5 px-3 bg-[#131E33] hover:bg-[#C5A880] hover:text-[#070A12] border border-[#243252] text-[#F8FAFC] rounded-xl text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span>Consulter</span>
+                <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+              </button>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Serment Solennel Quote Card */}
-      <section className="px-4 sm:px-6 mb-6">
-        <div className="bg-white rounded-xl p-4 sm:p-5 border border-[#e2e8f0] shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-[#fedeb2]/40 text-[#725b38] flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-[26px]">gavel</span>
-          </div>
+      {/* Two-Column Editorial: Serment Solennel & Cadre de Travail */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        {/* Solemn Oath & Values (6 cols) */}
+        <div className="lg:col-span-6 bg-[#0F172A] border border-[#1E293B] rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col justify-between">
           <div>
-            <span className="text-[10px] font-bold text-[#725b38] uppercase tracking-widest block">
-              Serment de l'Avocat
+            <div className="flex items-center gap-2 mb-3">
+              <span className="material-symbols-outlined text-[#C5A880] text-[24px]">gavel</span>
+              <span className="font-label-sm uppercase tracking-widest text-[#C5A880] text-xs font-bold">
+                Engagement Déontologique
+              </span>
+            </div>
+            <h3 className="font-headline-sm text-[#F8FAFC] text-xl font-bold mb-3">
+              Le Serment Solennel de l'Avocat
+            </h3>
+            <blockquote className="font-headline-sm italic text-white/90 text-base sm:text-lg mb-4 border-l-2 border-[#C5A880] pl-4 py-1">
+              « Je jure comme Avocat d'exercer mes fonctions avec dignité, conscience, indépendance, probité et humanité. »
+            </blockquote>
+            <p className="font-body-sm text-[#94A3B8] text-xs leading-relaxed">
+              Ce serment n'est pas une simple tradition : il est la boussole de notre cabinet. Chaque client bénéficie du secret professionnel absolu et d'une loyauté indéfectible dans la défense de ses intérêts.
+            </p>
+          </div>
+
+          <div className="pt-5 border-t border-[#1E293B] flex items-center justify-between flex-wrap gap-2">
+            <span className="text-xs text-[#C5A880] font-semibold uppercase tracking-wider">
+              Ordre des Avocats du Cameroun
             </span>
-            <p className="font-headline-sm italic text-[#0B1120] text-sm sm:text-base font-medium mt-0.5">
-              « Dignité, Conscience, Indépendance, Probité et Humanité »
-            </p>
-            <p className="text-[11px] text-[#45464d] mt-1">
-              Barreau du Cameroun • 15+ années d'exercice
-            </p>
+            <button
+              onClick={() => onNavigate('le-cabinet-et-avocat')}
+              className="text-xs text-white font-bold hover:text-[#C5A880] flex items-center gap-1 cursor-pointer"
+            >
+              Découvrir le Cabinet <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
           </div>
         </div>
-      </section>
 
-      {/* Cadre & Cabinet Preview */}
-      <section className="px-4 sm:px-6 mb-6">
-        <div
-          onClick={() => onNavigate('le-cabinet-et-avocat')}
-          className="relative rounded-xl overflow-hidden h-40 bg-[#0B1120] p-4 flex flex-col justify-end shadow-md cursor-pointer group"
-        >
-          <img
-            src={ASSETS.office}
-            alt="Cabinet Bonanjo"
-            className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-102 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/60 to-transparent" />
-          <div className="relative z-10 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] uppercase font-bold text-[#fedeb2] tracking-wider">
-                Implantation &amp; Équipe
+        {/* Office & Direct Contact Card (6 cols) */}
+        <div className="lg:col-span-6 bg-[#0F172A] border border-[#1E293B] rounded-2xl overflow-hidden shadow-xl flex flex-col">
+          <div className="relative h-48 sm:h-52 bg-[#0B1120]">
+            <img
+              src={ASSETS.office}
+              alt="Cabinet d'Avocat Maître YOYA Yves à Bonanjo"
+              className="w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <span className="px-2.5 py-1 bg-[#C5A880] text-[#070A12] text-[10px] uppercase font-bold rounded tracking-wider">
+                Siège Douala Bonanjo
               </span>
-              <h4 className="font-headline-sm text-white text-base font-bold">
-                Le Cabinet à Douala Bonanjo &amp; Yaoundé
-              </h4>
+              <p className="font-headline-sm text-white text-lg font-bold mt-1">
+                Rue des Ministères, Douala
+              </p>
             </div>
-            <span className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </span>
+          </div>
+
+          <div className="p-6 flex-1 flex flex-col justify-between gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a
+                href={`tel:${CONTACT_INFO.phoneStandardRaw}`}
+                className="p-3 bg-[#131E33] rounded-xl border border-[#243252] flex items-center gap-3 hover:border-[#C5A880]/50 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[#C5A880] text-[20px]">phone</span>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wider">Standard</span>
+                  <span className="text-xs font-bold text-[#F8FAFC]">{CONTACT_INFO.phoneStandard}</span>
+                </div>
+              </a>
+
+              <a
+                href={`https://wa.me/${CONTACT_INFO.phoneWhatsappRaw}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-[#131E33] rounded-xl border border-[#243252] flex items-center gap-3 hover:border-[#C5A880]/50 transition-colors"
+              >
+                <span className="material-symbols-outlined text-emerald-400 text-[20px]">chat</span>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-[#94A3B8] uppercase tracking-wider">WhatsApp</span>
+                  <span className="text-xs font-bold text-[#F8FAFC]">{CONTACT_INFO.phoneWhatsapp}</span>
+                </div>
+              </a>
+            </div>
+
+            <button
+              onClick={() => onNavigate('contact-et-consultation')}
+              className="w-full py-3 bg-[#C5A880] hover:bg-[#D4AF37] text-[#070A12] rounded-xl font-bold uppercase tracking-wider text-xs transition-colors cursor-pointer"
+            >
+              Prendre rendez-vous au cabinet
+            </button>
           </div>
         </div>
       </section>

@@ -2,25 +2,25 @@
 
 @theme {
   --color-slate-midnight: #0B1120;
-  --color-secondary: #725b38;
-  --color-secondary-container: #fedeb2;
-  --color-on-secondary-container: #78603e;
-  --color-secondary-fixed: #fedeb2;
-  --color-secondary-fixed-dim: #e0c298;
-  --color-surface: #f7f9fb;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f2f4f6;
-  --color-surface-container: #eceef0;
-  --color-surface-container-high: #e6e8ea;
-  --color-surface-container-highest: #e0e3e5;
-  --color-on-surface: #191c1e;
-  --color-on-surface-variant: #45464d;
-  --color-primary-container: #131b2e;
+  --color-secondary: #C5A880;
+  --color-secondary-container: #2A2318;
+  --color-on-secondary-container: #EADBCE;
+  --color-secondary-fixed: #C5A880;
+  --color-secondary-fixed-dim: #9E8158;
+  --color-surface: #070A12;
+  --color-surface-container-lowest: #0F172A;
+  --color-surface-container-low: #131E33;
+  --color-surface-container: #1A2640;
+  --color-surface-container-high: #243252;
+  --color-surface-container-highest: #2F3E63;
+  --color-on-surface: #F8FAFC;
+  --color-on-surface-variant: #94A3B8;
+  --color-primary-container: #111A2E;
   --color-ivory-pure: #ffffff;
-  --color-gold-antique: #B8860B;
+  --color-gold-antique: #D4AF37;
   --color-gold-soft: #EADBCE;
-  --color-border-subtle: #E2E8F0;
-  --color-error: #ba1a1a;
+  --color-border-subtle: #1E293B;
+  --color-error: #EF4444;
   
   --spacing-gutter-mobile: 1rem;
   --spacing-gutter: 1.5rem;
@@ -36,33 +36,33 @@
 @layer base {
   :root {
     --slate-midnight: #0B1120;
-    --secondary: #725b38;
-    --secondary-container: #fedeb2;
-    --on-secondary-container: #78603e;
-    --secondary-fixed: #fedeb2;
-    --secondary-fixed-dim: #e0c298;
-    --surface: #f7f9fb;
-    --surface-container-lowest: #ffffff;
-    --surface-container-low: #f2f4f6;
-    --surface-container: #eceef0;
-    --surface-container-high: #e6e8ea;
-    --surface-container-highest: #e0e3e5;
-    --on-surface: #191c1e;
-    --on-surface-variant: #45464d;
-    --primary-container: #131b2e;
+    --secondary: #C5A880;
+    --secondary-container: #2A2318;
+    --on-secondary-container: #EADBCE;
+    --secondary-fixed: #C5A880;
+    --secondary-fixed-dim: #9E8158;
+    --surface: #070A12;
+    --surface-container-lowest: #0F172A;
+    --surface-container-low: #131E33;
+    --surface-container: #1A2640;
+    --surface-container-high: #243252;
+    --surface-container-highest: #2F3E63;
+    --on-surface: #F8FAFC;
+    --on-surface-variant: #94A3B8;
+    --primary-container: #111A2E;
     --ivory-pure: #ffffff;
-    --gold-antique: #B8860B;
+    --gold-antique: #D4AF37;
     --gold-soft: #EADBCE;
-    --border-subtle: #E2E8F0;
-    --error: #ba1a1a;
+    --border-subtle: #1E293B;
+    --error: #EF4444;
   }
 
   html, body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: var(--surface);
-    color: var(--on-surface);
+    background-color: #070A12;
+    color: #F8FAFC;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 

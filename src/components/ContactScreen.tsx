@@ -83,7 +83,6 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ initialDomain }) =
 
   const handleCloseModal = () => {
     setIsSubmitted(false);
-    // Reset fields
     setNomComplet('');
     setRaisonSociale('');
     setTelephone('');
@@ -93,584 +92,581 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ initialDomain }) =
   };
 
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto">
-      {/* En-tête éditorial & Solennel */}
-      <section className="px-4 sm:px-6 pt-4 pb-6">
-        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#fedeb2]/50 text-[#78603e] font-label-sm rounded uppercase tracking-widest text-[11px] font-semibold">
-            <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Top Banner Introduction */}
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#C5A880]/15 border border-[#C5A880]/30 text-[#C5A880] font-label-sm rounded-full uppercase tracking-widest text-xs font-semibold">
+            <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>
               verified
             </span>
-            Secrétariat Général
+            Secrétariat Juridique Officiel
           </span>
-          <span className="text-[#45464d] font-label-sm text-[11px]">• Bonanjo, Douala</span>
+          <span className="text-[#94A3B8] font-label-sm text-xs">• Bonanjo, Douala (Cameroun)</span>
         </div>
 
-        <h1 className="font-headline-lg-mobile text-[#0B1120] tracking-tight mb-2 text-2xl sm:text-3xl">
-          Consultation Juridique &amp; Contact
+        <h1 className="font-headline-lg text-[#F8FAFC] tracking-tight mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold">
+          Consultation Juridique &amp; Prise de Rendez-vous
         </h1>
-        <p className="font-body-md text-[#45464d] leading-relaxed">
-          Fixez un rendez-vous au cabinet à Douala, à distance par visioconférence sécurisée ou contactez directement notre secrétariat juridique.
+        <p className="font-body-md text-[#94A3B8] max-w-3xl leading-relaxed text-sm sm:text-base">
+          Fixez un rendez-vous au cabinet principal de Douala Bonanjo, planifiez une consultation confidentielle à distance par visioconférence sécurisée, ou contactez immédiatement le secrétariat de Maître YOYA Yves.
         </p>
+      </div>
 
-        {/* Statut de Disponibilité & Serment */}
-        <div className="mt-4 p-3 bg-white rounded-xl shadow-[0_4px_20px_rgba(11,17,32,0.05)] border border-[#e2e8f0]/80 flex items-center justify-between flex-wrap gap-2">
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#725b38] opacity-75" />
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#725b38]" />
-            </span>
-            <div className="flex flex-col">
-              <span className="font-title-md text-[#0B1120] text-xs uppercase tracking-wider font-semibold">
-                Permanence du Cabinet
-              </span>
-              <span className="font-body-sm text-[#45464d] text-[11px]">
-                Dossiers traités sous 24h ouvrées
-              </span>
-            </div>
+      {/* Main Grid: Responsive 2-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Form (7 cols) */}
+        <div className="lg:col-span-7 flex flex-col gap-6">
+          {/* Modality Selector */}
+          <div className="p-1.5 bg-[#0F172A] border border-[#1E293B] rounded-xl flex gap-1.5 shadow-lg">
+            <button
+              onClick={() => setMode('cabinet')}
+              className={`flex-1 py-3 px-3 rounded-lg font-title-md text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-2 cursor-pointer font-semibold ${
+                mode === 'cabinet'
+                  ? 'bg-[#C5A880] text-[#070A12] shadow-md'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-white/5'
+              }`}
+              id="btn-cabinet"
+              type="button"
+            >
+              <span className="material-symbols-outlined text-[18px]">domain</span>
+              <span>En Cabinet (Douala Bonanjo)</span>
+            </button>
+            <button
+              onClick={() => setMode('distance')}
+              className={`flex-1 py-3 px-3 rounded-lg font-title-md text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-2 cursor-pointer font-semibold ${
+                mode === 'distance'
+                  ? 'bg-[#C5A880] text-[#070A12] shadow-md'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-white/5'
+              }`}
+              id="btn-distance"
+              type="button"
+            >
+              <span className="material-symbols-outlined text-[18px]">videocam</span>
+              <span>À Distance (Visio / Tél)</span>
+            </button>
           </div>
-          <div className="flex items-center gap-1 text-[#725b38]">
-            <span className="material-symbols-outlined text-[18px]">lock</span>
-            <span className="font-label-sm uppercase tracking-wider text-[11px] font-semibold">
-              Secret Professionnel
-            </span>
-          </div>
-        </div>
-      </section>
 
-      {/* Sélecteur de Modalité de Consultation */}
-      <section className="px-4 sm:px-6 mb-4">
-        <div className="p-1 bg-[#eceef0] rounded-xl flex gap-1">
-          <button
-            onClick={() => setMode('cabinet')}
-            className={`flex-1 py-2.5 px-2 rounded-lg font-title-md text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              mode === 'cabinet'
-                ? 'bg-[#0B1120] text-white shadow-sm'
-                : 'text-[#45464d] hover:text-[#0B1120]'
-            }`}
-            id="btn-cabinet"
-            type="button"
+          {/* Form Card */}
+          <form
+            onSubmit={handleSubmit}
+            className="bg-[#0F172A] border border-[#1E293B] rounded-2xl p-5 sm:p-7 shadow-xl flex flex-col gap-5"
+            id="legal-consultation-form"
           >
-            <span className="material-symbols-outlined text-[18px]">domain</span>
-            <span>En Cabinet (Douala Bonanjo)</span>
-          </button>
-          <button
-            onClick={() => setMode('distance')}
-            className={`flex-1 py-2.5 px-2 rounded-lg font-title-md text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              mode === 'distance'
-                ? 'bg-[#0B1120] text-white shadow-sm'
-                : 'text-[#45464d] hover:text-[#0B1120]'
-            }`}
-            id="btn-distance"
-            type="button"
-          >
-            <span className="material-symbols-outlined text-[18px]">videocam</span>
-            <span>À Distance (Visio / Tél)</span>
-          </button>
-        </div>
-      </section>
+            {/* Qualité du demandeur */}
+            <div>
+              <label className="block font-label-md uppercase tracking-wider text-[#C5A880] mb-2 text-xs font-semibold">
+                Qualité du demandeur
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <label
+                  className={`flex items-center gap-3 p-3.5 rounded-xl cursor-pointer transition-all border ${
+                    clientType === 'particulier'
+                      ? 'bg-[#C5A880]/15 text-[#F8FAFC] border-[#C5A880]'
+                      : 'bg-[#131E33] text-[#94A3B8] border-[#1E293B] hover:bg-[#1A2640]'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="client_type"
+                    value="particulier"
+                    checked={clientType === 'particulier'}
+                    onChange={() => setClientType('particulier')}
+                    className="accent-[#C5A880] h-4 w-4"
+                  />
+                  <div className="flex flex-col">
+                    <span className="font-title-md text-sm font-semibold text-[#F8FAFC]">Particulier</span>
+                    <span className="text-[11px] text-[#94A3B8]">Défense individuelle, patrimoine, litige</span>
+                  </div>
+                </label>
 
-      {/* Formulaire de Consultation Interactif */}
-      <section className="px-4 sm:px-6 mb-8">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white rounded-xl p-4 sm:p-5 shadow-[0_10px_30px_-5px_rgba(11,17,32,0.06)] border border-[#e2e8f0]/80 flex flex-col gap-4"
-          id="legal-consultation-form"
-        >
-          {/* Type de Clientèle */}
-          <div>
-            <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold">
-              Qualité du demandeur
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <label
-                className={`flex items-center gap-2 p-2.5 rounded-lg cursor-pointer transition-colors border ${
-                  clientType === 'particulier'
-                    ? 'bg-[#fedeb2]/30 text-[#78603e] border-[#725b38]/40'
-                    : 'bg-[#f2f4f6] text-[#191c1e] border-transparent hover:bg-[#eceef0]'
-                }`}
-              >
+                <label
+                  className={`flex items-center gap-3 p-3.5 rounded-xl cursor-pointer transition-all border ${
+                    clientType === 'entreprise'
+                      ? 'bg-[#C5A880]/15 text-[#F8FAFC] border-[#C5A880]'
+                      : 'bg-[#131E33] text-[#94A3B8] border-[#1E293B] hover:bg-[#1A2640]'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="client_type"
+                    value="entreprise"
+                    checked={clientType === 'entreprise'}
+                    onChange={() => setClientType('entreprise')}
+                    className="accent-[#C5A880] h-4 w-4"
+                  />
+                  <div className="flex flex-col">
+                    <span className="font-title-md text-sm font-semibold text-[#F8FAFC]">Entreprise / Société</span>
+                    <span className="text-[11px] text-[#94A3B8]">Sociétés OHADA, investissements, contrats</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Civilité, Nom et Prénom */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="sm:col-span-1">
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="civilite">
+                  Civilité
+                </label>
+                <select
+                  id="civilite"
+                  name="civilite"
+                  value={civilite}
+                  onChange={(e) => setCivilite(e.target.value)}
+                  className="w-full h-12 px-3 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-md text-sm border border-[#243252] focus:border-[#C5A880] focus:outline-none"
+                >
+                  <option value="Me" className="bg-[#0F172A]">Me</option>
+                  <option value="M." className="bg-[#0F172A]">M.</option>
+                  <option value="Mme" className="bg-[#0F172A]">Mme</option>
+                  <option value="Dr" className="bg-[#0F172A]">Dr</option>
+                </select>
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="nom_complet">
+                  Nom et Prénom *
+                </label>
                 <input
-                  type="radio"
-                  name="client_type"
-                  value="particulier"
-                  checked={clientType === 'particulier'}
-                  onChange={() => setClientType('particulier')}
-                  className="accent-[#725b38] h-4 w-4"
-                />
-                <span className="font-title-md text-xs sm:text-sm font-semibold">Particulier</span>
-              </label>
-
-              <label
-                className={`flex items-center gap-2 p-2.5 rounded-lg cursor-pointer transition-colors border ${
-                  clientType === 'entreprise'
-                    ? 'bg-[#fedeb2]/30 text-[#78603e] border-[#725b38]/40'
-                    : 'bg-[#f2f4f6] text-[#191c1e] border-transparent hover:bg-[#eceef0]'
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="client_type"
-                  value="entreprise"
-                  checked={clientType === 'entreprise'}
-                  onChange={() => setClientType('entreprise')}
-                  className="accent-[#725b38] h-4 w-4"
-                />
-                <span className="font-title-md text-xs sm:text-sm font-semibold">Entreprise / Société</span>
-              </label>
-            </div>
-          </div>
-
-          {/* Civilité, Nom et Prénom */}
-          <div className="grid grid-cols-3 gap-2">
-            <div className="col-span-1">
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="civilite">
-                Civilité
-              </label>
-              <select
-                id="civilite"
-                name="civilite"
-                value={civilite}
-                onChange={(e) => setCivilite(e.target.value)}
-                className="w-full h-11 px-2 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-md text-sm border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              >
-                <option value="Me">Me</option>
-                <option value="M.">M.</option>
-                <option value="Mme">Mme</option>
-                <option value="Dr">Dr</option>
-              </select>
-            </div>
-            <div className="col-span-2">
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="nom_complet">
-                Nom et Prénom *
-              </label>
-              <input
-                id="nom_complet"
-                name="nom_complet"
-                type="text"
-                required
-                value={nomComplet}
-                onChange={(e) => setNomComplet(e.target.value)}
-                placeholder="Ex: Jean Paul Ndongo"
-                className="w-full h-11 px-3 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-md text-sm placeholder:text-[#45464d]/50 border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              />
-            </div>
-          </div>
-
-          {/* Nom de la structure (conditionnel si entreprise) */}
-          {clientType === 'entreprise' && (
-            <div id="company-field" className="transition-all">
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="raison_sociale">
-                Raison Sociale / Entité *
-              </label>
-              <input
-                id="raison_sociale"
-                name="raison_sociale"
-                type="text"
-                required={clientType === 'entreprise'}
-                value={raisonSociale}
-                onChange={(e) => setRaisonSociale(e.target.value)}
-                placeholder="Ex: Cameroun Agro Services SA"
-                className="w-full h-11 px-3 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-md text-sm placeholder:text-[#45464d]/50 border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              />
-            </div>
-          )}
-
-          {/* Coordonnées Tél & Email */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="flex-1">
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="telephone">
-                Numéro de Téléphone *
-              </label>
-              <div className="flex items-center h-11 bg-[#f2f4f6] rounded-lg border border-transparent focus-within:border-[#725b38]/40 focus-within:bg-white">
-                <div className="flex items-center gap-1 pl-3 pr-1 text-[#191c1e] font-title-md text-xs sm:text-sm shrink-0">
-                  <span className="text-base">🇨🇲</span>
-                  <span className="text-[#45464d]">+237</span>
-                </div>
-                <input
-                  id="telephone"
-                  name="telephone"
-                  type="tel"
+                  id="nom_complet"
+                  name="nom_complet"
+                  type="text"
                   required
-                  value={telephone}
-                  onChange={(e) => setTelephone(e.target.value)}
-                  placeholder="6XX XX XX XX"
-                  className="w-full h-full bg-transparent px-2 font-body-md text-sm text-[#191c1e] placeholder:text-[#45464d]/50 focus:outline-none"
+                  value={nomComplet}
+                  onChange={(e) => setNomComplet(e.target.value)}
+                  placeholder="Ex: Jean Paul Ndongo"
+                  className="w-full h-12 px-4 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-md text-sm placeholder:text-[#94A3B8]/40 border border-[#243252] focus:border-[#C5A880] focus:outline-none"
                 />
               </div>
             </div>
 
-            <div className="flex-1">
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="email">
-                Adresse E-mail *
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="contact@domaine.cm"
-                className="w-full h-11 px-3 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-md text-sm placeholder:text-[#45464d]/50 border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              />
+            {/* Raison Sociale si entreprise */}
+            {clientType === 'entreprise' && (
+              <div id="company-field" className="animate-in fade-in duration-200">
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="raison_sociale">
+                  Raison Sociale / Entité Corporative *
+                </label>
+                <input
+                  id="raison_sociale"
+                  name="raison_sociale"
+                  type="text"
+                  required={clientType === 'entreprise'}
+                  value={raisonSociale}
+                  onChange={(e) => setRaisonSociale(e.target.value)}
+                  placeholder="Ex: Cameroun Agro Services SA"
+                  className="w-full h-12 px-4 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-md text-sm placeholder:text-[#94A3B8]/40 border border-[#243252] focus:border-[#C5A880] focus:outline-none"
+                />
+              </div>
+            )}
+
+            {/* Coordonnées Tél & Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="telephone">
+                  Numéro de Téléphone *
+                </label>
+                <div className="flex items-center h-12 bg-[#131E33] rounded-xl border border-[#243252] focus-within:border-[#C5A880]">
+                  <div className="flex items-center gap-1.5 pl-3 pr-2 text-[#F8FAFC] font-title-md text-xs sm:text-sm shrink-0 border-r border-[#243252]">
+                    <span className="text-base">🇨🇲</span>
+                    <span className="text-[#C5A880] font-semibold">+237</span>
+                  </div>
+                  <input
+                    id="telephone"
+                    name="telephone"
+                    type="tel"
+                    required
+                    value={telephone}
+                    onChange={(e) => setTelephone(e.target.value)}
+                    placeholder="6XX XX XX XX"
+                    className="w-full h-full bg-transparent px-3 font-body-md text-sm text-[#F8FAFC] placeholder:text-[#94A3B8]/40 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="email">
+                  Adresse E-mail Professionnelle *
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="contact@domaine.cm"
+                  className="w-full h-12 px-4 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-md text-sm placeholder:text-[#94A3B8]/40 border border-[#243252] focus:border-[#C5A880] focus:outline-none"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Domaine Juridique Concerné */}
-          <div>
-            <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="domaine_juridique">
-              Domaine Juridique Concerné *
-            </label>
-            <div className="relative">
-              <select
-                id="domaine_juridique"
-                name="domaine_juridique"
-                required
-                value={domaineJuridique}
-                onChange={(e) => setDomaineJuridique(e.target.value)}
-                className="w-full h-11 pl-3 pr-10 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-md text-sm appearance-none border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              >
-                <option value="" disabled>Sélectionnez un domaine d'intervention</option>
-                <option value="affaires">Droit des Affaires &amp; Sociétés (OHADA)</option>
-                <option value="foncier">Litige Foncier &amp; Immobilier</option>
-                <option value="travail">Droit du Travail &amp; Relations Sociales</option>
-                <option value="contentieux">Contentieux Civil, Commercial ou Pénal</option>
-                <option value="fiscalite">Fiscalité des Entreprises &amp; Douanes</option>
-                <option value="contrats">Rédaction de Contrats &amp; Protocoles</option>
-                <option value="autre">Autre consultation générale</option>
-              </select>
-              <span className="material-symbols-outlined pointer-events-none absolute right-3 top-2.5 text-[#45464d] text-[20px]">
-                expand_more
-              </span>
-            </div>
-          </div>
-
-          {/* Degré d'Urgence */}
-          <div>
-            <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold">
-              Degré d'urgence
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => setUrgence('normal')}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer transition-all border ${
-                  urgence === 'normal'
-                    ? 'bg-[#131b2e] text-white border-[#131b2e]'
-                    : 'bg-[#f2f4f6] text-[#191c1e] border-transparent hover:bg-[#eceef0]'
-                }`}
-              >
-                <span className="material-symbols-outlined text-[20px] mb-1">calendar_today</span>
-                <span className="font-label-sm text-[11px]">Normal</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setUrgence('urgent')}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer transition-all border ${
-                  urgence === 'urgent'
-                    ? 'bg-[#131b2e] text-white border-[#131b2e]'
-                    : 'bg-[#f2f4f6] text-[#191c1e] border-transparent hover:bg-[#eceef0]'
-                }`}
-              >
-                <span className="material-symbols-outlined text-[20px] mb-1 text-[#B8860B]">alarm</span>
-                <span className="font-label-sm text-[11px]">&lt; 48 Heures</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setUrgence('astreinte')}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer transition-all border ${
-                  urgence === 'astreinte'
-                    ? 'bg-[#131b2e] text-white border-[#131b2e]'
-                    : 'bg-[#f2f4f6] text-[#191c1e] border-transparent hover:bg-[#eceef0]'
-                }`}
-              >
-                <span className="material-symbols-outlined text-[20px] mb-1 text-[#ba1a1a]">notification_important</span>
-                <span className="font-label-sm text-[11px]">Procédure / GAV</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Date & Créneau Souhaité */}
-          <div className="grid grid-cols-2 gap-2">
+            {/* Domaine Juridique Concerné */}
             <div>
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="date_rdv">
-                Date souhaitée
+              <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="domaine_juridique">
+                Domaine Juridique Concerné *
               </label>
-              <input
-                id="date_rdv"
-                name="date_rdv"
-                type="date"
-                required
-                value={dateRdv}
-                onChange={(e) => setDateRdv(e.target.value)}
-                className="w-full h-11 px-2.5 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-sm text-xs border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="creneau_rdv">
-                Créneau horaire
-              </label>
-              <select
-                id="creneau_rdv"
-                name="creneau_rdv"
-                value={creneauRdv}
-                onChange={(e) => setCreneauRdv(e.target.value)}
-                className="w-full h-11 px-2 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-sm text-xs border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none"
-              >
-                <option value="matin_1">09h00 - 11h00</option>
-                <option value="matin_2">11h00 - 13h00</option>
-                <option value="aprem_1">14h00 - 16h00</option>
-                <option value="aprem_2">16h00 - 18h00</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Brève description du dossier */}
-          <div>
-            <label className="block font-label-md uppercase tracking-wider text-[#0B1120] mb-1.5 text-xs font-semibold" htmlFor="description">
-              Exposé sommaire des faits &amp; Pièces clés *
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              required
-              rows={4}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Décrivez en quelques lignes l'objet de votre démarche, les parties prenantes et l'échéance juridique éventuelle..."
-              className="w-full p-3 bg-[#f2f4f6] text-[#191c1e] rounded-lg font-body-md text-sm placeholder:text-[#45464d]/50 border border-transparent focus:border-[#725b38]/40 focus:bg-white focus:outline-none resize-none"
-            />
-          </div>
-
-          {/* Engagement Déontologique & Consentement */}
-          <div className="p-3 bg-[#f2f4f6] rounded-lg flex items-start gap-2.5">
-            <input
-              type="checkbox"
-              id="deontologie"
-              name="deontologie"
-              required
-              checked={deontologie}
-              onChange={(e) => setDeontologie(e.target.checked)}
-              className="accent-[#725b38] h-4 w-4 mt-0.5 rounded cursor-pointer shrink-0"
-            />
-            <label htmlFor="deontologie" className="font-body-sm text-xs text-[#191c1e] cursor-pointer select-none leading-relaxed">
-              J'atteste du caractère confidentiel de ma démarche conformément aux règles déontologiques de l'Ordre des Avocats du Cameroun.
-            </label>
-          </div>
-
-          {/* Bouton d'action principal */}
-          <button
-            type="submit"
-            className="w-full h-14 bg-gradient-to-r from-[#0B1120] via-[#131b2e] to-[#0B1120] text-white rounded-lg font-label-md uppercase tracking-widest shadow-[0_8px_20px_rgba(11,17,32,0.25)] hover:shadow-[0_12px_28px_rgba(11,17,32,0.35)] transition-all flex items-center justify-center gap-2 group relative overflow-hidden cursor-pointer active:scale-[0.99]"
-            id="btn-submit-consultation"
-          >
-            <span className="absolute inset-0 bg-[#725b38]/15 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="material-symbols-outlined text-[20px] text-[#fedeb2]">gavel</span>
-            <span className="relative z-10 font-semibold text-xs sm:text-sm">Confirmer la demande de consultation</span>
-            <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-              arrow_forward
-            </span>
-          </button>
-
-          {/* Mention informative */}
-          <p className="text-center font-label-sm text-[#45464d] text-[11px]">
-            Le secrétariat vous contacte sous 24 heures ouvrées pour confirmation définitive du rendez-vous.
-          </p>
-        </form>
-      </section>
-
-      {/* L'Étude & Cadre de Réception (Atmosphère Visuelle) */}
-      <section className="px-4 sm:px-6 mb-8">
-        <div className="relative rounded-xl overflow-hidden shadow-md h-48 bg-[#0B1120] flex items-end p-4 sm:p-5">
-          <img
-            alt="Intérieur élégant et solennel du cabinet d'avocats de Maître YOYA Yves à Douala Bonanjo"
-            className="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity"
-            src={ASSETS.office}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/60 to-transparent" />
-          <div className="relative z-10 flex flex-col">
-            <span className="font-label-sm text-[#725b38] uppercase tracking-widest mb-0.5 text-[11px] font-semibold text-[#fedeb2]">
-              L'Environnement de Consultation
-            </span>
-            <h2 className="font-headline-sm text-white text-lg sm:text-xl">
-              Un cadre discret propice aux échanges stratégiques
-            </h2>
-          </div>
-        </div>
-      </section>
-
-      {/* Coordonnées Directes & Permanence */}
-      <section className="px-4 sm:px-6 mb-8 flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="font-headline-sm text-[#0B1120] text-lg font-bold">Coordonnées &amp; Permanence</h2>
-          <span className="font-label-sm text-[#725b38] uppercase tracking-wider text-[11px] font-semibold">
-            Secrétariat
-          </span>
-        </div>
-
-        {/* Carte Standard Téléphonique */}
-        <a
-          href={`tel:${CONTACT_INFO.phoneStandardRaw}`}
-          className="p-4 bg-white rounded-xl shadow-sm border border-[#e2e8f0]/80 flex items-center justify-between group hover:bg-[#f2f4f6] transition-colors"
-          id="link-call-standard"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-lg bg-[#eceef0] flex items-center justify-center text-[#0B1120] group-hover:bg-[#0B1120] group-hover:text-white transition-colors">
-              <span className="material-symbols-outlined text-[22px]">phone</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-label-sm uppercase tracking-wider text-[#45464d] text-[10px] font-semibold">
-                Ligne Standard Secrétariat
-              </span>
-              <span className="font-title-md text-[#0B1120] font-semibold">
-                {CONTACT_INFO.phoneStandard}
-              </span>
-            </div>
-          </div>
-          <span className="material-symbols-outlined text-[#45464d] text-[20px] group-hover:text-[#725b38] group-hover:translate-x-0.5 transition-all">
-            chevron_right
-          </span>
-        </a>
-
-        {/* Carte Urgence / WhatsApp */}
-        <a
-          href={`https://wa.me/${CONTACT_INFO.phoneWhatsappRaw}?text=${encodeURIComponent(
-            "Bonjour Maître YOYA Yves, je vous contacte concernant une demande de consultation juridique urgente."
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-4 bg-white rounded-xl shadow-sm border border-[#e2e8f0]/80 flex items-center justify-between group hover:bg-[#f2f4f6] transition-colors"
-          id="link-whatsapp-urgence"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-lg bg-[#fedeb2]/40 flex items-center justify-center text-[#78603e] group-hover:bg-[#725b38] group-hover:text-white transition-colors">
-              <span className="material-symbols-outlined text-[22px]">chat</span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-label-sm uppercase tracking-wider text-[#725b38] text-[10px] font-semibold">
-                  Permanence &amp; Astreinte
-                </span>
-                <span className="px-1.5 py-0.5 bg-[#ba1a1a]/10 text-[#ba1a1a] rounded font-label-sm text-[9px] uppercase tracking-wider font-bold">
-                  Urgent
+              <div className="relative">
+                <select
+                  id="domaine_juridique"
+                  name="domaine_juridique"
+                  required
+                  value={domaineJuridique}
+                  onChange={(e) => setDomaineJuridique(e.target.value)}
+                  className="w-full h-12 pl-4 pr-10 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-md text-sm appearance-none border border-[#243252] focus:border-[#C5A880] focus:outline-none cursor-pointer"
+                >
+                  <option value="" disabled className="bg-[#0F172A]">Sélectionnez un domaine d'intervention</option>
+                  <option value="affaires" className="bg-[#0F172A]">Droit des Affaires &amp; Sociétés (OHADA)</option>
+                  <option value="foncier" className="bg-[#0F172A]">Litige Foncier &amp; Titre Immobilier</option>
+                  <option value="travail" className="bg-[#0F172A]">Droit du Travail &amp; Relations Sociales</option>
+                  <option value="contentieux" className="bg-[#0F172A]">Contentieux Civil, Commercial ou Pénal</option>
+                  <option value="fiscalite" className="bg-[#0F172A]">Fiscalité des Entreprises &amp; Douanes</option>
+                  <option value="contrats" className="bg-[#0F172A]">Rédaction de Contrats &amp; Protocoles</option>
+                  <option value="autre" className="bg-[#0F172A]">Autre consultation générale</option>
+                </select>
+                <span className="material-symbols-outlined pointer-events-none absolute right-3 top-3 text-[#94A3B8] text-[20px]">
+                  expand_more
                 </span>
               </div>
-              <span className="font-title-md text-[#0B1120] font-semibold">
-                {CONTACT_INFO.phoneWhatsapp} (WhatsApp)
+            </div>
+
+            {/* Degré d'Urgence */}
+            <div>
+              <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold">
+                Degré d'urgence procédurale
+              </label>
+              <div className="grid grid-cols-3 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setUrgence('normal')}
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer transition-all border ${
+                    urgence === 'normal'
+                      ? 'bg-[#C5A880] text-[#070A12] border-[#C5A880] font-bold shadow-md'
+                      : 'bg-[#131E33] text-[#94A3B8] border-[#243252] hover:bg-[#1A2640]'
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-[20px] mb-1">calendar_today</span>
+                  <span className="font-label-sm text-[11px]">Normal</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setUrgence('urgent')}
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer transition-all border ${
+                    urgence === 'urgent'
+                      ? 'bg-[#D4AF37] text-[#070A12] border-[#D4AF37] font-bold shadow-md'
+                      : 'bg-[#131E33] text-[#94A3B8] border-[#243252] hover:bg-[#1A2640]'
+                  }`}
+                >
+                  <span className={`material-symbols-outlined text-[20px] mb-1 ${urgence === 'urgent' ? 'text-[#070A12]' : 'text-[#D4AF37]'}`}>
+                    alarm
+                  </span>
+                  <span className="font-label-sm text-[11px]">&lt; 48 Heures</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setUrgence('astreinte')}
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer transition-all border ${
+                    urgence === 'astreinte'
+                      ? 'bg-[#EF4444] text-white border-[#EF4444] font-bold shadow-md'
+                      : 'bg-[#131E33] text-[#94A3B8] border-[#243252] hover:bg-[#1A2640]'
+                  }`}
+                >
+                  <span className={`material-symbols-outlined text-[20px] mb-1 ${urgence === 'astreinte' ? 'text-white' : 'text-[#EF4444]'}`}>
+                    notification_important
+                  </span>
+                  <span className="font-label-sm text-[11px]">GAV / Astreinte</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Date & Créneau Souhaité */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="date_rdv">
+                  Date souhaitée
+                </label>
+                <input
+                  id="date_rdv"
+                  name="date_rdv"
+                  type="date"
+                  required
+                  value={dateRdv}
+                  onChange={(e) => setDateRdv(e.target.value)}
+                  className="w-full h-12 px-3 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-sm text-xs border border-[#243252] focus:border-[#C5A880] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="creneau_rdv">
+                  Créneau horaire
+                </label>
+                <select
+                  id="creneau_rdv"
+                  name="creneau_rdv"
+                  value={creneauRdv}
+                  onChange={(e) => setCreneauRdv(e.target.value)}
+                  className="w-full h-12 px-3 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-sm text-xs border border-[#243252] focus:border-[#C5A880] focus:outline-none cursor-pointer"
+                >
+                  <option value="matin_1" className="bg-[#0F172A]">09h00 - 11h00</option>
+                  <option value="matin_2" className="bg-[#0F172A]">11h00 - 13h00</option>
+                  <option value="aprem_1" className="bg-[#0F172A]">14h00 - 16h00</option>
+                  <option value="aprem_2" className="bg-[#0F172A]">16h00 - 18h00</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Brève description du dossier */}
+            <div>
+              <label className="block font-label-md uppercase tracking-wider text-[#94A3B8] mb-1.5 text-xs font-semibold" htmlFor="description">
+                Exposé sommaire des faits &amp; Pièces clés *
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                required
+                rows={4}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Décrivez en quelques lignes l'objet de votre démarche, les parties prenantes et l'échéance juridique éventuelle..."
+                className="w-full p-4 bg-[#131E33] text-[#F8FAFC] rounded-xl font-body-md text-sm placeholder:text-[#94A3B8]/40 border border-[#243252] focus:border-[#C5A880] focus:outline-none resize-none leading-relaxed"
+              />
+            </div>
+
+            {/* Engagement Déontologique */}
+            <div className="p-4 bg-[#131E33] border border-[#243252] rounded-xl flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="deontologie"
+                name="deontologie"
+                required
+                checked={deontologie}
+                onChange={(e) => setDeontologie(e.target.checked)}
+                className="accent-[#C5A880] h-5 w-5 mt-0.5 rounded cursor-pointer shrink-0"
+              />
+              <label htmlFor="deontologie" className="font-body-sm text-xs text-[#E2E8F0] cursor-pointer select-none leading-relaxed">
+                J'atteste du caractère strictement confidentiel de ma démarche conformément aux règles déontologiques de l'Ordre des Avocats du Cameroun.
+              </label>
+            </div>
+
+            {/* Bouton d'action principal */}
+            <button
+              type="submit"
+              className="w-full h-14 bg-gradient-to-r from-[#C5A880] via-[#D4AF37] to-[#C5A880] text-[#070A12] rounded-xl font-label-md uppercase tracking-widest shadow-[0_8px_24px_rgba(197,168,128,0.25)] hover:shadow-[0_12px_28px_rgba(197,168,128,0.35)] transition-all flex items-center justify-center gap-2.5 group relative overflow-hidden cursor-pointer active:scale-[0.99] font-bold text-sm"
+              id="btn-submit-consultation"
+            >
+              <span className="material-symbols-outlined text-[20px]">gavel</span>
+              <span>Confirmer la demande de consultation</span>
+              <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
+            </button>
+
+            <p className="text-center font-label-sm text-[#94A3B8] text-xs">
+              Le secrétariat vous contacte sous 24 heures ouvrées pour confirmation définitive du créneau.
+            </p>
+          </form>
+        </div>
+
+        {/* Right Column: Information, Office Card, Contacts & Coordinates (5 cols) */}
+        <div className="lg:col-span-5 flex flex-col gap-6">
+          {/* Statut de Disponibilité & Serment */}
+          <div className="p-4 bg-[#0F172A] border border-[#1E293B] rounded-2xl shadow-lg flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center gap-3">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A880] opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#C5A880]" />
+              </span>
+              <div className="flex flex-col">
+                <span className="font-title-md text-[#F8FAFC] text-xs uppercase tracking-wider font-bold">
+                  Permanence du Cabinet
+                </span>
+                <span className="font-body-sm text-[#94A3B8] text-xs">
+                  Dossiers traités sous 24h ouvrées
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-[#C5A880]/15 rounded-lg text-[#C5A880] border border-[#C5A880]/30">
+              <span className="material-symbols-outlined text-[16px]">lock</span>
+              <span className="font-label-sm uppercase tracking-wider text-[10px] font-bold">
+                Secret Absolu
               </span>
             </div>
           </div>
-          <span className="material-symbols-outlined text-[#45464d] text-[20px] group-hover:text-[#725b38] group-hover:translate-x-0.5 transition-all">
-            chevron_right
-          </span>
-        </a>
 
-        {/* Carte Adresse & Localisation */}
-        <div className="p-4 bg-white rounded-xl shadow-sm border border-[#e2e8f0]/80 flex flex-col gap-3">
-          <div className="flex items-start gap-3">
-            <div className="w-11 h-11 rounded-lg bg-[#eceef0] flex items-center justify-center text-[#0B1120] shrink-0">
-              <span className="material-symbols-outlined text-[22px]">location_on</span>
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="font-label-sm uppercase tracking-wider text-[#45464d] text-[10px] font-semibold">
-                Siège du Cabinet
+          {/* L'Environnement de Consultation Photo Card */}
+          <div className="relative rounded-2xl overflow-hidden shadow-xl h-56 bg-[#0B1120] border border-[#1E293B] flex items-end p-5 group">
+            <img
+              alt="Intérieur élégant et solennel du cabinet d'avocats de Maître YOYA Yves à Douala Bonanjo"
+              className="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-700"
+              src={ASSETS.office}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070A12] via-[#070A12]/60 to-transparent" />
+            <div className="relative z-10 flex flex-col">
+              <span className="font-label-sm uppercase tracking-widest mb-1 text-[11px] font-bold text-[#C5A880]">
+                L'Environnement de Consultation
               </span>
-              <span className="font-title-md text-[#0B1120] font-semibold">
-                {CONTACT_INFO.address}
-              </span>
-              <span className="font-body-sm text-[#45464d] text-xs">
-                {CONTACT_INFO.city} ({CONTACT_INFO.bp})
-              </span>
+              <h3 className="font-headline-sm text-white text-lg sm:text-xl font-bold leading-snug">
+                Un cadre discret propice aux échanges stratégiques
+              </h3>
             </div>
           </div>
 
-          {/* Map Embed Container */}
-          <div
-            className="w-full h-36 rounded-lg bg-cover bg-center overflow-hidden relative shadow-inner"
-            data-location="Bonanjo, Douala, Cameroon"
-            style={{ backgroundImage: `url('${ASSETS.map}')` }}
-          >
-            <div className="absolute inset-0 bg-[#0B1120]/20 pointer-events-none" />
-            <div className="absolute bottom-2 left-2 px-2.5 py-1 bg-[#f7f9fb]/95 backdrop-blur rounded font-label-sm text-xs text-[#0B1120] shadow-sm flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-[#725b38]">pin_drop</span>
-              <span className="font-medium">Quartier Administratif de Bonanjo</span>
+          {/* Coordonnées Directes */}
+          <div className="bg-[#0F172A] border border-[#1E293B] rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+            <h3 className="font-headline-sm text-[#F8FAFC] text-base font-bold flex items-center justify-between">
+              <span>Lignes Directes du Cabinet</span>
+              <span className="text-xs font-normal text-[#C5A880] uppercase tracking-wider">Secrétariat</span>
+            </h3>
+
+            {/* Standard Phone */}
+            <a
+              href={`tel:${CONTACT_INFO.phoneStandardRaw}`}
+              className="p-3.5 bg-[#131E33] rounded-xl border border-[#243252] flex items-center justify-between group hover:border-[#C5A880]/60 transition-colors"
+              id="link-call-standard"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-[#C5A880] group-hover:bg-[#C5A880] group-hover:text-[#070A12] transition-colors">
+                  <span className="material-symbols-outlined text-[20px]">phone</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-label-sm uppercase tracking-wider text-[#94A3B8] text-[10px] font-semibold">
+                    Ligne Standard
+                  </span>
+                  <span className="font-title-md text-[#F8FAFC] font-bold text-sm">
+                    {CONTACT_INFO.phoneStandard}
+                  </span>
+                </div>
+              </div>
+              <span className="material-symbols-outlined text-[#94A3B8] text-[20px] group-hover:text-[#C5A880] group-hover:translate-x-1 transition-all">
+                chevron_right
+              </span>
+            </a>
+
+            {/* WhatsApp Urgence */}
+            <a
+              href={`https://wa.me/${CONTACT_INFO.phoneWhatsappRaw}?text=${encodeURIComponent(
+                "Bonjour Maître YOYA Yves, je vous contacte concernant une demande de consultation juridique urgente."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 bg-[#131E33] rounded-xl border border-[#243252] flex items-center justify-between group hover:border-[#C5A880]/60 transition-colors"
+              id="link-whatsapp-urgence"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[20px]">chat</span>
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="font-label-sm uppercase tracking-wider text-[#C5A880] text-[10px] font-semibold">
+                      Permanence 24/7
+                    </span>
+                    <span className="px-1.5 py-0.2 bg-[#EF4444]/20 text-[#EF4444] rounded text-[9px] uppercase tracking-wider font-bold">
+                      Urgent
+                    </span>
+                  </div>
+                  <span className="font-title-md text-[#F8FAFC] font-bold text-sm">
+                    {CONTACT_INFO.phoneWhatsapp} (WhatsApp)
+                  </span>
+                </div>
+              </div>
+              <span className="material-symbols-outlined text-[#94A3B8] text-[20px] group-hover:text-[#C5A880] group-hover:translate-x-1 transition-all">
+                chevron_right
+              </span>
+            </a>
+          </div>
+
+          {/* Localisation & Map */}
+          <div className="bg-[#0F172A] border border-[#1E293B] rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#131E33] flex items-center justify-center text-[#C5A880] shrink-0 border border-[#243252]">
+                <span className="material-symbols-outlined text-[22px]">location_on</span>
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="font-label-sm uppercase tracking-wider text-[#C5A880] text-[10px] font-bold">
+                  Siège du Cabinet Principal
+                </span>
+                <span className="font-title-md text-[#F8FAFC] font-bold text-sm">
+                  {CONTACT_INFO.address}
+                </span>
+                <span className="font-body-sm text-[#94A3B8] text-xs">
+                  {CONTACT_INFO.city} ({CONTACT_INFO.bp})
+                </span>
+              </div>
+            </div>
+
+            {/* Map image preview */}
+            <div
+              className="w-full h-40 rounded-xl bg-cover bg-center overflow-hidden relative shadow-inner border border-[#243252]"
+              style={{ backgroundImage: `url('${ASSETS.map}')` }}
+            >
+              <div className="absolute inset-0 bg-[#070A12]/30 pointer-events-none" />
+              <div className="absolute bottom-2 left-2 px-3 py-1.5 bg-[#070A12]/90 backdrop-blur rounded-lg text-xs text-white shadow-md flex items-center gap-1.5 border border-white/10">
+                <span className="material-symbols-outlined text-[14px] text-[#C5A880]">pin_drop</span>
+                <span className="font-medium">Douala Bonanjo • Quartier Juridique</span>
+              </div>
+            </div>
+
+            {/* Horaires d'Ouverture */}
+            <div className="p-3 bg-[#131E33] rounded-xl flex items-center gap-3 border border-[#243252] text-xs text-[#94A3B8]">
+              <span className="material-symbols-outlined text-[#C5A880] text-[20px] shrink-0">schedule</span>
+              <div>
+                <span className="text-[#F8FAFC] font-semibold">Horaires d'Accueil : </span>
+                <span>Lun - Ven : 8h00 - 18h00 • Samedi sur RDV express</span>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Horaires d'Ouverture */}
-        <div className="p-4 bg-[#f2f4f6] rounded-xl flex items-center gap-3 border border-[#e2e8f0]/60">
-          <div className="w-10 h-10 rounded-lg bg-[#e0e3e5] flex items-center justify-center text-[#0B1120] shrink-0">
-            <span className="material-symbols-outlined text-[20px]">schedule</span>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-title-md text-xs sm:text-sm text-[#0B1120] font-semibold">
-                Horaires d'Accueil
-              </span>
-              <span className="font-label-sm text-[#725b38] text-xs font-semibold">
-                Lun - Ven : 8h00 - 18h00
-              </span>
-            </div>
-            <span className="font-body-sm text-[#45464d] text-[11px]">
-              Samedi sur rendez-vous express • Dimanche &amp; Fériés astreinte pénale uniquement
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Modal de confirmation / Toast de soumission */}
+      {/* Confirmation Modal Dialog */}
       {isSubmitted && (
-        <div className="fixed inset-0 z-50 bg-[#0B1120]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl flex flex-col items-center text-center border border-[#e2e8f0]">
-            <div className="w-14 h-14 rounded-full bg-[#fedeb2]/50 text-[#725b38] flex items-center justify-center mb-3">
-              <span className="material-symbols-outlined text-[32px]">task_alt</span>
+        <div className="fixed inset-0 z-50 bg-[#070A12]/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-[#0F172A] border border-[#C5A880]/50 rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-full bg-[#C5A880]/20 text-[#C5A880] flex items-center justify-center mb-4 border border-[#C5A880]/40">
+              <span className="material-symbols-outlined text-[36px]">task_alt</span>
             </div>
 
-            <span className="font-label-sm text-[#725b38] uppercase tracking-widest mb-1 text-xs font-semibold">
-              Dossier Enregistré
+            <span className="font-label-sm text-[#C5A880] uppercase tracking-widest mb-1 text-xs font-bold">
+              Demande Enregistrée au Secrétariat
             </span>
-            <h3 className="font-headline-sm text-[#0B1120] text-xl font-bold mb-2">
-              Demande Transmise
+            <h3 className="font-headline-sm text-[#F8FAFC] text-2xl font-bold mb-3">
+              Dossier Transmis avec Succès
             </h3>
 
             {submittedData && (
-              <div className="w-full bg-[#f2f4f6] rounded-lg p-3 text-left mb-4 text-xs space-y-1">
-                <div className="flex justify-between">
-                  <span className="text-[#45464d]">Référence :</span>
-                  <span className="font-semibold text-[#0B1120]">{submittedData.id}</span>
+              <div className="w-full bg-[#131E33] border border-[#243252] rounded-xl p-4 text-left mb-5 text-xs space-y-2">
+                <div className="flex justify-between border-b border-[#243252] pb-1.5">
+                  <span className="text-[#94A3B8]">Référence Unique :</span>
+                  <span className="font-mono font-bold text-[#C5A880]">{submittedData.id}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[#45464d]">Demandeur :</span>
-                  <span className="font-medium text-[#0B1120]">{submittedData.civilite} {submittedData.nomComplet}</span>
+                <div className="flex justify-between border-b border-[#243252] pb-1.5">
+                  <span className="text-[#94A3B8]">Demandeur :</span>
+                  <span className="font-semibold text-[#F8FAFC]">{submittedData.civilite} {submittedData.nomComplet}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[#45464d]">Modalité :</span>
-                  <span className="font-medium text-[#725b38]">
-                    {submittedData.mode === 'cabinet' ? 'En Cabinet (Douala)' : 'À distance (Visio / Tél)'}
+                <div className="flex justify-between border-b border-[#243252] pb-1.5">
+                  <span className="text-[#94A3B8]">Modalité :</span>
+                  <span className="font-semibold text-[#C5A880]">
+                    {submittedData.mode === 'cabinet' ? 'En Cabinet (Douala Bonanjo)' : 'À distance (Visio / Tél)'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#45464d]">Date prévue :</span>
-                  <span className="font-medium text-[#0B1120]">{submittedData.dateRdv}</span>
+                  <span className="text-[#94A3B8]">Date souhaitée :</span>
+                  <span className="font-semibold text-[#F8FAFC]">{submittedData.dateRdv}</span>
                 </div>
               </div>
             )}
 
-            <p className="font-body-sm text-[#45464d] text-xs leading-relaxed mb-5">
-              Votre requête a été transmise en toute confidentialité au secrétariat de Maître YOYA Yves. Un accusé de réception vous est adressé par SMS et email.
+            <p className="font-body-sm text-[#94A3B8] text-xs leading-relaxed mb-6">
+              Votre requête a été enregistrée en toute confidentialité au secrétariat de Maître YOYA Yves. Un accusé de réception vous sera transmis et notre permanence vous rappellera sous 24h ouvrées.
             </p>
 
             <button
               onClick={handleCloseModal}
-              className="w-full h-11 bg-[#0B1120] text-white rounded-lg font-label-md uppercase tracking-wider hover:bg-[#131b2e] transition-colors cursor-pointer font-semibold"
+              className="w-full h-12 bg-[#C5A880] text-[#070A12] rounded-xl font-label-md uppercase tracking-wider hover:bg-[#D4AF37] transition-colors cursor-pointer font-bold text-xs"
               id="close-dialog"
               type="button"
             >
-              Fermer
+              Fermer et retourner au site
             </button>
           </div>
         </div>
