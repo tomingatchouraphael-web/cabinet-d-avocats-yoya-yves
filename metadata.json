@@ -1,0 +1,6 @@
+{
+  "name": "Cabinet Maître YOYA Yves",
+  "description": "Application du Cabinet de Maître YOYA Yves, Avocat au Barreau du Cameroun. Conseil juridique, droit OHADA, contentieux et prise de consultation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
