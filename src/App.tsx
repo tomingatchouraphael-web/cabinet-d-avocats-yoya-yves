@@ -46,7 +46,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070A12] text-[#F8FAFC] flex flex-col antialiased selection:bg-[#C5A880] selection:text-[#070A12]">
+    <div className="min-h-screen bg-[#F1F3F5] text-[#0F172A] flex flex-col antialiased selection:bg-[#A37B3E] selection:text-white">
       {/* Fixed top app bar */}
       <Header
         currentScreen={currentScreen}
@@ -55,7 +55,7 @@ export default function App() {
       />
 
       {/* Main scrollable view */}
-      <main className="flex-1 w-full pt-20 pb-20 lg:pb-12 bg-[#070A12] flex flex-col">
+      <main className="flex-1 w-full pt-20 pb-20 lg:pb-12 bg-[#F1F3F5] flex flex-col">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentScreen}

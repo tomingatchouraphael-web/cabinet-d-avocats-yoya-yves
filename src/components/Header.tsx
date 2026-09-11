@@ -22,7 +22,7 @@ const NAV_LINKS: NavMenuItem[] = [
 
 export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpenMenu }) => {
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#070A12]/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.5)] pt-safe border-b border-[#1E293B]">
+    <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-xl shadow-sm pt-safe border-b border-[#E2E8F0]">
       <div className="max-w-7xl mx-auto h-20 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
         {/* Brand identity */}
         <button
@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpe
           className="flex items-center gap-3 min-w-0 text-left cursor-pointer group transition-opacity hover:opacity-95"
           id="btn-header-brand"
         >
-          <div className="relative p-1 rounded-lg bg-white/5 border border-white/10 shrink-0">
+          <div className="relative p-1 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] shrink-0 shadow-xs">
             <img
               alt="Logo Cabinet Avocat YOYA Yves"
               className="h-9 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
@@ -39,21 +39,21 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpe
           </div>
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="font-headline-sm text-base sm:text-lg text-[#F8FAFC] tracking-tight font-bold truncate">
+              <span className="font-headline-sm text-base sm:text-lg text-[#0F172A] tracking-tight font-bold truncate">
                 Me YOYA Yves
               </span>
-              <span className="hidden xs:inline-block px-1.5 py-0.5 bg-[#C5A880]/15 border border-[#C5A880]/30 text-[#C5A880] font-label-sm uppercase rounded font-semibold text-[10px]">
+              <span className="hidden xs:inline-block px-1.5 py-0.5 bg-[#A37B3E]/10 border border-[#A37B3E]/25 text-[#8C6527] font-label-sm uppercase rounded font-semibold text-[10px]">
                 Barreau
               </span>
             </div>
-            <span className="font-label-sm text-[#94A3B8] uppercase tracking-widest truncate text-[10px] sm:text-[11px]">
+            <span className="font-label-sm text-[#64748B] uppercase tracking-widest truncate text-[10px] sm:text-[11px]">
               {CONTACT_INFO.title}
             </span>
           </div>
         </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+        <nav className="hidden lg:flex items-center gap-1 bg-[#F1F3F5] p-1 rounded-xl border border-[#E2E8F0]">
           {NAV_LINKS.map((link) => {
             const isActive = currentScreen === link.id;
             return (
@@ -62,8 +62,8 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpe
                 onClick={() => onNavigate(link.id)}
                 className={`px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[#C5A880] text-[#070A12] shadow-sm font-bold'
-                    : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-white/5'
+                    ? 'bg-[#A37B3E] text-white shadow-xs font-bold'
+                    : 'text-[#64748B] hover:text-[#0F172A] hover:bg-white'
                 }`}
                 id={`desktop-nav-${link.id}`}
               >
@@ -78,20 +78,20 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpe
           {/* Quick phone link on large screens */}
           <a
             href={`tel:${CONTACT_INFO.phoneStandardRaw}`}
-            className="hidden xl:flex items-center gap-2 text-xs font-semibold text-[#94A3B8] hover:text-[#C5A880] transition-colors bg-white/5 px-3 py-2 rounded-lg border border-white/10"
+            className="hidden xl:flex items-center gap-2 text-xs font-semibold text-[#475569] hover:text-[#A37B3E] transition-colors bg-[#F8FAFC] px-3 py-2 rounded-lg border border-[#E2E8F0]"
             title="Ligne secrétariat"
           >
-            <span className="material-symbols-outlined text-[16px] text-[#C5A880]">phone</span>
+            <span className="material-symbols-outlined text-[16px] text-[#A37B3E]">phone</span>
             <span>{CONTACT_INFO.phoneStandard}</span>
           </a>
 
           {/* CTA Prendre RDV */}
           <button
             onClick={() => onNavigate('contact-et-consultation')}
-            className={`inline-flex items-center justify-center h-10 px-4 sm:px-5 font-label-md uppercase tracking-wider rounded-lg transition-all shadow-[0_4px_16px_rgba(197,168,128,0.2)] cursor-pointer text-xs font-bold ${
+            className={`inline-flex items-center justify-center h-10 px-4 sm:px-5 font-label-md uppercase tracking-wider rounded-lg transition-all shadow-sm cursor-pointer text-xs font-bold ${
               currentScreen === 'contact-et-consultation'
-                ? 'bg-white text-[#070A12]'
-                : 'bg-[#C5A880] text-[#070A12] hover:bg-[#D4AF37]'
+                ? 'bg-[#0F172A] text-white'
+                : 'bg-[#A37B3E] text-white hover:bg-[#8C6527]'
             }`}
             id="btn-header-rdv"
           >
@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpe
           <button
             onClick={onOpenMenu}
             aria-label="Menu principal"
-            className="lg:hidden w-10 h-10 flex items-center justify-center text-[#F8FAFC] rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
+            className="lg:hidden w-10 h-10 flex items-center justify-center text-[#0F172A] rounded-lg bg-[#F8FAFC] hover:bg-[#E2E8F0] border border-[#CBD5E1] transition-colors cursor-pointer"
             id="btn-header-menu"
           >
             <span className="material-symbols-outlined text-[24px]">menu</span>
@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpe
           <button
             onClick={() => onNavigate('le-cabinet-et-avocat')}
             title="Voir le profil de Maître YOYA Yves"
-            className="p-0.5 rounded-full ring-2 ring-[#C5A880]/50 hover:ring-[#C5A880] transition-all cursor-pointer shrink-0"
+            className="p-0.5 rounded-full ring-2 ring-[#A37B3E]/40 hover:ring-[#A37B3E] transition-all cursor-pointer shrink-0"
             id="btn-header-avatar"
           >
             <img
